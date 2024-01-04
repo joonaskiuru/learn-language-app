@@ -4,7 +4,6 @@ import { Box, Paper, Grid, Typography } from '@mui/material';
  
 function Dashboard () {
 
-
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -23,15 +22,10 @@ function Dashboard () {
             <Grid container spacing={1}>
                 <Grid item xs={12} md={6} lg={4} sx={{m: 1}}>
                     <Item>
-
+                        
                     </Item>
                 </Grid>
                 <Grid item xs={12} md={5} lg={4} sx={{m: 1}}>
-                    <Item>
-
-                    </Item>
-                </Grid>
-                <Grid item xs={12} md={5} lg={3} sx={{m: 1}}>
                     <Item>
 
                     </Item>
