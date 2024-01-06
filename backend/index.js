@@ -1,6 +1,7 @@
 const express = require("express");
 const exercisesRouter = require("./routes/exercises");
 const usersRouter = require("./routes/users");
+const wordsRouter = require("./routes/words");
 const port = 3000;
 const app = express();
 const cors = require("cors");
@@ -19,7 +20,8 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static("./frontend/dist"));
 app.use("/api/exercises", exercisesRouter);
-app.use("/api/users", exercisesRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/words", wordsRouter);
 
 let server = undefined;
 const connection = mysql.createConnection(credentials);

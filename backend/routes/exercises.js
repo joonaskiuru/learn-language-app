@@ -4,7 +4,8 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const response = await database.findAll();
+    console.log("hei")
+    const response = await database.findAll("exercises");
     res.json(response);
   } catch (error) {
     res.status(500).json({ msg: "Error" });

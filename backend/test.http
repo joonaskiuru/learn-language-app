@@ -1,0 +1,25 @@
+
+get http://localhost:3000/
+
+###
+get http://localhost:3000/hello
+
+###
+get http://localhost:3000/world
+
+###
+get http://localhost:3000/api/exercises
+
+###
+get http://localhost:3000/api/locations/9
+###
+delete http://localhost:3000/api/words/3
+
+###
+post http://localhost:3000/api/words/
+content-type: application/json
+
+{ "original": "Dog", "translated": "Koira","language": "EN" }
+
+###
+get http://localhost:3000/api/words
