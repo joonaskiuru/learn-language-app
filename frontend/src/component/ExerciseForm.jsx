@@ -20,8 +20,8 @@ export default function ExerciseForm() {
         if(e.key === 'Enter') {
             e.preventDefault();
 
-            // Don't allow empty words or special characters
-            if(!e.target.value || /[\]\{\}[$€@£+-=*?!\\`]/.test(e.target.value)){
+            // Don't allow empty words
+            if(!e.target.value){
                 e.target.value = '';
                 return
             }
@@ -38,7 +38,6 @@ export default function ExerciseForm() {
 
     // Update Tags
     useEffect(() => {
-        setWords(words)
         setFormData({...formData,
             ["words"]: words,
         })
@@ -66,39 +65,30 @@ export default function ExerciseForm() {
             [words]: words,
         });
         console.log(formData.words + ": formdata")
-        return
+        // return
 
-        if(!formData.name){
+        if(!formData.exerciseName || !formData.language){
             setAlert(true)
             return
         }
         else {
-            var url = `${import.meta.env.VITE_API_URL}/api/` + "exercises";
+            var url = `${import.meta.env.VITE_API_URL}/api/` + "words";
             fetch(url, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData.exerciseName)
+                body: JSON.stringify(formData)
             })
             .then(() => {
-                url = `${import.meta.env.VITE_API_URL}/api/` + "words";
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData.words)
-                })
-                .then(() => {
-                    setAlert(false);
-                    setWords([]);
-                    setFormData({
-                        exerciseName: '',
-                        language: '',
-                        words: [],
-                    });
-                })
+                console.log("Posted")
+                setAlert(false);
+                setWords([]);
+                setFormData({
+                    exerciseName: '',
+                    language: '',
+                    words: [],
+                });
             })
         }
     }
@@ -120,6 +110,16 @@ export default function ExerciseForm() {
     variant="standard" 
     value={formData.exerciseName} 
     name="exerciseName"
+    onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
+    onChange={handleChange}
+    />
+        <TextField 
+    sx={{m: 2}} 
+    id="language" 
+    label="Insert Exercise Language Here" 
+    variant="standard" 
+    value={formData.language} 
+    name="language"
     onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
     onChange={handleChange}
     />

@@ -102,50 +102,52 @@ const db = {
           });
         } else {
           if (topic == "words") {
+            console.log(content["exerciseName"] + ": exerciseName");
+            console.log(content["language"] + ": language");
             connection.query(
-              "SELECT MAX(id) FROM exercises;",
-              (err, response) => {
+              `INSERT INTO exercises(name,language) VALUES (
+              ${connection.escape(content["exerciseName"])},
+              ${connection.escape(content["language"])});`,
+              (err, res) => {
                 // Error handling
                 if (err) {
                   reject({
                     msg: err,
                   });
                 }
-                const ex_id = JSON.stringify(response[0]["MAX(id)"]);
-                content.map((x) => {
-                  connection.query(
-                    `INSERT INTO words(original, translated,language,exercise_id) VALUES (
-                    ${connection.escape(x["original"])},
-                    ${connection.escape(x["translated"])},
-                    ${ex_id});`,
-                    (err, response) => {
+                connection.query(
+                  "SELECT MAX(id) FROM exercises;",
+                  (err, response) => {
+                    // Error handling
+                    if (err) {
+                      reject({
+                        msg: err,
+                      });
+                    }
+                    const ex_id = JSON.stringify(response[0]["MAX(id)"]);
+                    console.log(ex_id + ": ex id");
+                    let wordsData = "";
+                    content.words.map((x) => {
+                      wordsData += `("${x["original"]}","${x["translated"]}",${ex_id}),`;
+                    });
+                    wordsData = wordsData.slice(0, -1);
+                    const wordsQuery = `INSERT INTO words(original, translated,exercise_id) VALUES 
+                      ${wordsData};`;
+                    console.log(wordsQuery + " : words query");
+                    connection.query(wordsQuery, (err, response) => {
                       // Error handling
                       if (err) {
+                        console.log("ERROR ::: ")
+                        console.log(err)
                         reject({
                           msg: err,
                         });
                       }
                       connection.end();
                       resolve(response);
-                    }
-                  );
-                });
-              }
-            );
-          } else if (topic == "exercises") {
-            connection.query(
-              `INSERT INTO exercises(name,language) VALUES (
-              ${connection.escape(content["name"])},
-              ${connection.escape(content["language"])});`,
-              (err, response) => {
-                // Error handling
-                if (err) {
-                  reject({
-                    msg: err,
-                  });
-                }
-                connection.end();
-                resolve(response);
+                    });
+                  }
+                );
               }
             );
           }
