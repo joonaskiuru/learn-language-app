@@ -111,25 +111,41 @@ const db = {
                     msg: err,
                   });
                 }
-                const ex_id =
-                  parseInt(JSON.stringify(response[0]["MAX(id)"])) + 1;
-                connection.query(
-                  `INSERT INTO words(original, translated,language,exercise_id) VALUES (
-                  ${connection.escape(content["original"])},
-                  ${connection.escape(content["translated"])},
-                  ${connection.escape(content["language"])},
-                  ${ex_id});`,
-                  (err, response) => {
-                    // Error handling
-                    if (err) {
-                      reject({
-                        msg: err,
-                      });
+                const ex_id = JSON.stringify(response[0]["MAX(id)"]);
+                content.map((x) => {
+                  connection.query(
+                    `INSERT INTO words(original, translated,language,exercise_id) VALUES (
+                    ${connection.escape(x["original"])},
+                    ${connection.escape(x["translated"])},
+                    ${ex_id});`,
+                    (err, response) => {
+                      // Error handling
+                      if (err) {
+                        reject({
+                          msg: err,
+                        });
+                      }
+                      connection.end();
+                      resolve(response);
                     }
-                    connection.end();
-                    resolve(response);
-                  }
-                );
+                  );
+                });
+              }
+            );
+          } else if (topic == "exercises") {
+            connection.query(
+              `INSERT INTO exercises(name,language) VALUES (
+              ${connection.escape(content["name"])},
+              ${connection.escape(content["language"])});`,
+              (err, response) => {
+                // Error handling
+                if (err) {
+                  reject({
+                    msg: err,
+                  });
+                }
+                connection.end();
+                resolve(response);
               }
             );
           }

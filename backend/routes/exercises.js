@@ -1,11 +1,11 @@
 const database = require("../database/database.js");
 const express = require("express");
 const router = express.Router();
+const topic = "exercises";
 
 router.get("/", async (req, res) => {
   try {
-    console.log("hei")
-    const response = await database.findAll("exercises");
+    const response = await database.findAll(topic);
     res.json(response);
   } catch (error) {
     res.status(500).json({ msg: "Error" });
@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 router.get("/:myId([0-9]+)", async (req, res) => {
   const id = parseInt(req.params.myId);
   try {
-    const response = await database.findById(id);
+    const response = await database.findById(topic,id);
     res.status(200).json(response);
   } catch (error) {
     if (error.msg == `Item not found in database with id: ${id}`) {
@@ -29,7 +29,7 @@ router.get("/:myId([0-9]+)", async (req, res) => {
 router.delete("/:myId([0-9]+)", async (req, res) => {
   const id = parseInt(req.params.myId);
   try {
-    const response = await database.deleteById(id);
+    const response = await database.deleteById(topic,id);
     res.status(200).json(response);
   } catch (error) {
     if (error.msg == `Item not found in database with id: ${id}`) {
@@ -42,7 +42,7 @@ router.delete("/:myId([0-9]+)", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const response = await database.save(req.body);
+    const response = await database.save(topic,req.body);
     res.status(200).json(response);
   } catch (error) {
     res.status(400).json(error);

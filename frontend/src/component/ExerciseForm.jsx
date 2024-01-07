@@ -1,97 +1,103 @@
 import {useState,useEffect, useContext} from "react";
 import { Box, TextField, Typography,Divider, Button, Chip, Stack, MenuItem, Select, Alert} from '@mui/material';
-import { TaskUpdate } from './Contexts';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 
-export default function TaskForm() {
+export default function ExerciseForm() {
 
     // Initialize needed state variables
-    const [update,setUpdate] = useContext(update);
-
-    const [exerciseName,setExerciseName] = useState("");
     const [language,setLanguage] = useState("")
     const [languages,setLanguages] = useState([])
     const [words, setWords] = useState([]);
     const [alert, setAlert] = useState(false);
     const [formData, setFormData] = useState({
     exerciseName: '',
-    category: '',
-    words: {active: false, activatedTime: ''},
-    taskHistory: [],
-    tags: [],
+    language: '',
+    words: [],
     });
-
-    // Fetch predefined categories from JSON database
-    useEffect(() => {
-        const url = "http://mydb.tamk.fi:3306/" + "languages";
-        fetch(url).then((response) => response.json()).then((response) => {
-            setLanguages(response);
-        })
-    },[])
-
-    // Update Words
-    useEffect(() => {
-        setTags(taskTags)
-        setFormData(formData =>( {...formData,
-            ["tags"]: taskTags,
-        }))
-    },[taskTags])
 
     // Words are entered with pressing Enter
     function handleKeyDown(e) {
         if(e.key === 'Enter') {
             e.preventDefault();
 
-            // Don't allow empty tags
-            if(!e.target.value || taskTags.includes(e.target.value.toLowerCase())){
+            // Don't allow empty words or special characters
+            if(!e.target.value || /[\]\{\}[$€@£+-=*?!\\`]/.test(e.target.value)){
                 e.target.value = '';
                 return
             }
 
-            const tag = e.target.value.toLowerCase();
-            setTags([...taskTags,tag]);
+            let temp = e.target.value.toLowerCase().split(',');
+            const word = {original: temp[0],translated: temp[1]}
+            setWords([...words,word]);
             e.target.value = '';
             return
         }
+
         return
     }
+
+    // Update Tags
+    useEffect(() => {
+        setWords(words)
+        setFormData({...formData,
+            ["words"]: words,
+        })
+    },[words])
+
 
     // Handle change in form
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({...formData,
             [name]:value,
-            ["tags"]: taskTags,
         })
     };
+
+    // Handle deleting words
+    function handleDelete (key) {
+        const arr = words.filter(item => item !== key)
+        setWords(arr);
+    }
 
     // Handle form submit
     const handleSubmit = (e) => {
         e.preventDefault();
+        setFormData({...formData,
+            [words]: words,
+        });
+        console.log(formData.words + ": formdata")
+        return
 
-        if(!formData.category){
+        if(!formData.name){
             setAlert(true)
             return
         }
         else {
-            const url = "http://localhost:3010/tasks"
+            var url = `${import.meta.env.VITE_API_URL}/api/` + "exercises";
             fetch(url, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData.exerciseName)
             })
             .then(() => {
-                setTaskUpdate(true)
-                setAlert(false)
-                setTags([])
-                setFormData({
-                    exerciseName: '',
-                    category: '',
-                    status: {active: false, activatedTime: ''},
-                    taskHistory: [],
-                    tags: [],
+                url = `${import.meta.env.VITE_API_URL}/api/` + "words";
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData.words)
+                })
+                .then(() => {
+                    setAlert(false);
+                    setWords([]);
+                    setFormData({
+                        exerciseName: '',
+                        language: '',
+                        words: [],
+                    });
                 })
             })
         }
@@ -110,26 +116,25 @@ export default function TaskForm() {
     <TextField 
     sx={{m: 2}} 
     id="Name" 
-    label="Insert Task Name Here" 
+    label="Insert Exercise Name Here" 
     variant="standard" 
     value={formData.exerciseName} 
     name="exerciseName"
     onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
     onChange={handleChange}
     />
-    <Typography> Select Task Category: </Typography>
-    <Select sx={{ m: 2, display: 'block'}} name="category" size="small" value={formData.category} onChange={handleChange}>
-        {categories.map((x,i) => 
-            <MenuItem value={x} key={x + "_" + i}>{x}</MenuItem>
-        )}
-    </Select>
-    <TextField variant="outlined" id="tags" label="Insert Tags Here" name="tags" onKeyDown={handleKeyDown}/><br /><br />
+    <TextField variant="outlined" id="words" label="Insert Words Here; separate original word from translated word with a comma (,)." name="words" onKeyDown={handleKeyDown}/><br /><br />
 
     <Stack direction="column" spacing={1}>
-    {taskTags.map((x,i) => <Chip key={x + '_' + i} label={x}></Chip>)}
+    {words.map((x,i) => 
+    <Chip
+    key={x + '_' + i} 
+    label={x["original"] + " = " + x["translated"]}
+    onDelete={() => handleDelete(x)}
+    ></Chip>)}
     </Stack>
-    <Button variant="contained" type="submit" value="Submit" sx={{ m: 2,bgcolor: 'success.light' }}><PostAddIcon/>Add Task</Button>
-    <Alert sx={{display: alert ? 'flex' : 'none'}} severity="error">Please provide a category.</Alert>
+    <Button variant="contained" type="submit" value="Submit" sx={{ m: 2,bgcolor: 'success.light' }}><PostAddIcon/>Add Exercise</Button>
+    <Alert sx={{display: alert ? 'flex' : 'none'}} severity="error">Error in form. Please check all fields.</Alert>
     </Box>
   );
 }
