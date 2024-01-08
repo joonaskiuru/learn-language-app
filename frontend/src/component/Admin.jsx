@@ -9,6 +9,7 @@ import ExerciseForm from "./ExerciseForm";
  
 function Admin() {
     const [exercises, setExercises] = useState([]);
+    const [activePage,setActivePage] = useState('Main');
 
     // Fetch Exercises
     useEffect(() => {
@@ -31,13 +32,15 @@ function Admin() {
         <> 
         <Box sx={{ flexGrow: 1}}>
             <Paper sx={{ m: 2, p: 1,display: {xs: "none", sm: 'block'}}}>
-                <Typography variant="h6" sx={{color: 'text.secondary'}}>Exercises</Typography>
-                <Typography>Do exercises!</Typography>
+                <Typography variant="h6" sx={{color: 'text.secondary'}}>Admin</Typography>
+                <Typography>Manage Exercises</Typography>
 
             </Paper>
             <Grid container spacing={1}>
                 <Grid item xs={12} md={6} lg={4} sx={{m: 1}}>
                     <Item>
+                    <Typography sx={{m: 1}} variant="h5">All Exercises</Typography>
+                    <Divider/>
                     {exercises.map((x,i) => <Typography key={x + i}>{x.name}</Typography>)}
                     </Item>
                 </Grid>

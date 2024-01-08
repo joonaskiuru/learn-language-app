@@ -8,10 +8,10 @@ import { ThemeProvider } from "@emotion/react";
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#e6e018',
+      main: '#F6D776',
     },
     secondary: {
-      main: '#181fe6'
+      main: '#6DA4AA'
     }
   },
 });

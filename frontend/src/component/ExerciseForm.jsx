@@ -27,6 +27,12 @@ export default function ExerciseForm() {
             }
 
             let temp = e.target.value.toLowerCase().split(',');
+
+            if (temp.length != 2){
+                e.target.value = '';
+                return
+            }
+
             const word = {original: temp[0],translated: temp[1]}
             setWords([...words,word]);
             e.target.value = '';
@@ -101,7 +107,7 @@ export default function ExerciseForm() {
     autoComplete="off"
     onSubmit={handleSubmit}
     >
-    <Typography sx={{m: 1}} variant="h5">Create a Task</Typography>    
+    <Typography sx={{m: 1}} variant="h5">Create an Exercise</Typography>    
     <Divider/>
     <TextField 
     sx={{m: 2}} 
@@ -123,8 +129,8 @@ export default function ExerciseForm() {
     onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
     onChange={handleChange}
     />
-    <TextField variant="outlined" id="words" label="Insert Words Here; separate original word from translated word with a comma (,)." name="words" onKeyDown={handleKeyDown}/><br /><br />
-
+    <Typography sx={{mt: 3}}>Separate original word from translated word with a comma (,).</Typography>
+    <TextField sx={{m: 2}} variant="outlined" id="words" label="Insert Words Here" name="words" onKeyDown={handleKeyDown}/><br /><br />
     <Stack direction="column" spacing={1}>
     {words.map((x,i) => 
     <Chip

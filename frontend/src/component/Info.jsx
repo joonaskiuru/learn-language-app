@@ -15,13 +15,7 @@ function Info() {
             <Typography variant="h5">Info</Typography>
             <Divider sx={{my: 1}}/>
             <Typography variant="subtitle2" sx={{color: 'primary.dark'}}>Made By: Joonas Kiuru</Typography>
-            <Typography variant="subtitle2">Used work hours: 31 Hours (based on my work diary)</Typography>
-            <Typography variant="subtitle2">No AI Generated code. AI used only once for brief debugging of a specific problem.</Typography>
-            <Typography variant="h6" sx={{my: 1}}>Challenges</Typography>
-            <Typography variant="subtitle2" >STATES (Most Difficult): I had trouble keeping up with all the states involved, and updating them correctly.</Typography>
-            <Typography variant="subtitle2">MATERIAL UI: Usage of Material UI was challenging, because it changes the way everything is done visually,
-             and I didn't have experience with it before.</Typography>
-             <Typography variant="subtitle2" >RENDERING: I had problems sometimes controlling the amount of renders to avoid re-renders.</Typography>
+            <Typography variant="subtitle2">Learn Language - App : app for learning languages</Typography>
         </Paper>
 
         <Paper sx={{p:1, my: 1}}>

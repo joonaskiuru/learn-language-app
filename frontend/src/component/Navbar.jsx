@@ -15,7 +15,7 @@ import {
     Link as RouterLink,
     BrowserRouter as Router,
     Routes,
-    Route, Navigate
+    Route, Navigate, Outlet
 } from "react-router-dom";
 
 import Dashboard from "./Dashboard"; 
@@ -37,6 +37,7 @@ function Navbar() {
 
   return (
     <Router>
+    <Outlet/>
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -54,7 +55,7 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            TASK APP
+            LANGUAGES
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -116,7 +117,7 @@ function Navbar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block',":hover": {textDecoration: "underline"} }}
+                sx={{ my: 2, color: 'black', display: 'block',":hover": {textDecoration: "underline"} }}
                 component={RouterLink}
                 to={"/" + page}              >
                 {page}
@@ -131,7 +132,7 @@ function Navbar() {
               element={<Navigate to='/Dashboard'/>} />
             <Route
               exact
-              path="/Dashboard"
+              path="/Dashboard/"
               element={<Dashboard />}
           ></Route>
           <Route
@@ -147,6 +148,7 @@ function Navbar() {
           </Routes>
     </AppBar>
     </Router>
+
   );
 }
 export default Navbar;
