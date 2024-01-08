@@ -60,7 +60,7 @@ function Dashboard () {
                 </Box>
             </Paper>
             <Grid container spacing={1}>
-                <Grid item xs={12} md={6} lg={4} sx={{m: 1}}>
+                <Grid item xs={12} md={6} lg={6} sx={{m: 1}}>
                     <Item>
                         {activeExercise}
                     </Item>

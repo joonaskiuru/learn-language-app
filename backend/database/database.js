@@ -61,6 +61,36 @@ const db = {
     });
   },
 
+  findWordsByExerciseId: (id) => {
+    return new Promise((resolve, reject) => {
+      const connection = mysql.createConnection(credentials);
+      connection.connect((err) => {
+        // mysql connection
+        if (err) {
+          console.error("Error connecting to MySQL:", err);
+          process.exit(1);
+        } else {
+          connection.query(
+            `SELECT * FROM words WHERE exercise_id = ${id};`,
+            (err, response) => {
+              // Error handling
+              if (err) {
+                reject(err);
+              }
+              if (response.length == 0) {
+                reject({
+                  msg: `word not found in database with id: ${id}`,
+                });
+              }
+              connection.end();
+              resolve(response);
+            }
+          );
+        }
+      });
+    });
+  },
+
   deleteById: (topic, id) => {
     return new Promise((resolve, reject) => {
       const connection = mysql.createConnection(credentials);
@@ -137,8 +167,8 @@ const db = {
                     connection.query(wordsQuery, (err, response) => {
                       // Error handling
                       if (err) {
-                        console.log("ERROR ::: ")
-                        console.log(err)
+                        console.log("ERROR ::: ");
+                        console.log(err);
                         reject({
                           msg: err,
                         });

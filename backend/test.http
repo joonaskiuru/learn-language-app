@@ -8,7 +8,7 @@ get http://localhost:3000/hello
 get http://localhost:3000/world
 
 ###
-get http://localhost:3000/api/exercises
+get http://localhost:3000/api/exercises/10/words
 
 ###
 get http://localhost:3000/api/locations/9
