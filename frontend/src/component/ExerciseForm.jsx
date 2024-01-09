@@ -54,7 +54,7 @@ export default function ExerciseForm() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({...formData,
-            [name]:value,
+            [name]:value.toUpperCase(),
         })
     };
 
@@ -70,8 +70,6 @@ export default function ExerciseForm() {
         setFormData({...formData,
             [words]: words,
         });
-        console.log(formData.words + ": formdata")
-        // return
 
         if(!formData.exerciseName || !formData.language){
             setAlert(true)

@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 router.get("/:myId([0-9]+)", async (req, res) => {
   const id = parseInt(req.params.myId);
   try {
-    const response = await database.findById(topic,id);
+    const response = await database.findById(topic, id);
     res.status(200).json(response);
   } catch (error) {
     if (error.msg == `Item not found in database with id: ${id}`) {
@@ -40,11 +40,24 @@ router.get("/:myId([0-9]+)/words", async (req, res) => {
   }
 });
 
+router.delete("/:myId([0-9]+)/words", async (req, res) => {
+  const id = parseInt(req.params.myId);
+  try {
+    const response = await database.deleteExercise(id);
+    res.status(200).json(response);
+  } catch (error) {
+    if (error.msg == `Item not found in database with id: ${id}`) {
+      res.status(404).json(error);
+    } else {
+      res.status(500).json(error);
+    }
+  }
+});
 
 router.delete("/:myId([0-9]+)", async (req, res) => {
   const id = parseInt(req.params.myId);
   try {
-    const response = await database.deleteById(topic,id);
+    const response = await database.deleteById(topic, id);
     res.status(200).json(response);
   } catch (error) {
     if (error.msg == `Item not found in database with id: ${id}`) {
@@ -57,7 +70,7 @@ router.delete("/:myId([0-9]+)", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const response = await database.save(topic,req.body);
+    const response = await database.save(topic, req.body);
     res.status(200).json(response);
   } catch (error) {
     res.status(400).json(error);
