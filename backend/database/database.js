@@ -86,6 +86,31 @@ const db = {
     });
   },
 
+  findPointsByUser: (id) => {
+    return new Promise((resolve, reject) => {
+      const connection = mysql.createConnection(credentials);
+      connection.connect((err) => {
+        // mysql connection
+        if (err) {
+          console.error("Error connecting to MySQL:", err);
+          process.exit(1);
+        } else {
+          connection.query(
+            `SELECT * FROM points WHERE user_id = ${id};`,
+            (err, response) => {
+              // Error handling
+              if (err) {
+                reject(err);
+              }
+              connection.end();
+              resolve(response);
+            }
+          );
+        }
+      });
+    });
+  },
+
   deleteById: (topic, id) => {
     return new Promise((resolve, reject) => {
       const connection = mysql.createConnection(credentials);
@@ -215,6 +240,27 @@ const db = {
                     });
                   }
                 );
+              }
+            );
+          }
+          else if (topic == "points") {
+            connection.query(
+              `INSERT INTO ${topic} (exercise_name,points,max_points,user_id) VALUES (
+              ${connection.escape(content["exercise_name"])},
+              ${connection.escape(content["points"])},
+              ${connection.escape(content["max_points"])},
+              ${connection.escape(content["user_id"])})
+              ON DUPLICATE KEY UPDATE
+                points = ${connection.escape(content["points"])};`,
+              (err, response) => {
+                // Error handling
+                if (err) {
+                  reject({
+                    msg: err,
+                  });
+                }
+                connection.end();
+                resolve(response);
               }
             );
           }

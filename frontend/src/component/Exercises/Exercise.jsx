@@ -7,7 +7,6 @@ function Exercise (props) {
     const [formData, setFormData] = useState([]);
 
     const [words,setWords] = useState([]);
-    const [points,setPoints] = useState(0);
 
     // Fetch Exercises
     useEffect(() => {
@@ -28,14 +27,29 @@ function Exercise (props) {
     };  console.log(formData)
 
     const submitExercise = () => {
-        let tempPoints = 0;
+        let points = 0;
         words.map((x) => {
             if(x["translated"] === formData[x["original"]]){
                 console.log(formData[x["original"]] + ": corr")
-                tempPoints += 1;
+                points += 1;
             }
         })
-        console.log(tempPoints + ": temp points")
+        const id = 1;
+        const data = {"exercise_name": props.name,"points": points,"max_points": words.length,"user_id": id}
+        console.log(points + ": temp points")
+        console.log(data + " : data")
+        const url = `${import.meta.env.VITE_API_URL}/api/points/`;
+        fetch(url, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(() => {
+            console.log("Posted")
+            setFormData([]);
+        })
     }
 
 

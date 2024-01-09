@@ -22,4 +22,11 @@ content-type: application/json
 { "original": "Dog", "translated": "Koira","language": "EN" }
 
 ###
-get http://localhost:3000/api/words
+get http://localhost:3000/api/points
+
+###
+
+post http://localhost:3000/api/points/
+content-type: application/json
+
+{ "exercise_name": "EX 01", "points": "11","max_points": "15","user_id": "1" }
