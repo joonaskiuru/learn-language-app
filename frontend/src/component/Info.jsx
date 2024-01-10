@@ -17,17 +17,6 @@ function Info() {
             <Typography variant="subtitle2" sx={{color: 'primary.dark'}}>Made By: Joonas Kiuru</Typography>
             <Typography variant="subtitle2">Learn Language - App : app for learning languages</Typography>
         </Paper>
-
-        <Paper sx={{p:1, my: 1}}>
-            <Typography variant="h6">Instructions</Typography>
-            <Divider sx={{my: 1}}/>
-            <Typography>You can create and view tasks from Home page. Use the "Create a Task" - section to create tasks.</Typography>
-            <Typography>You get a more detailed view of the tasks from Analytics page. Use the category- & tag filter to filter results.</Typography>
-            <Divider sx={{my: 1}}/>
-            <Typography color='success.main'><PlayArrowIcon fontSize="small" /> Press the Activate - button to activate tasks.</Typography>
-            <Typography color='error.dark'><DeleteIcon fontSize="small" /> Press the Delete - button to delete tasks.</Typography>
-            <Typography color='primary.main'><EditIcon fontSize="small" /> Press the Edit - button to edit tasks.</Typography>
-        </Paper>
     </Box>
     
     
