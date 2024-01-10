@@ -1,12 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { styled } from '@mui/material/styles';
 import { Box, TextField, Paper, Grid, Typography, MenuItem, Select, Button, Divider } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
+import ExercisePoints from "./ExercisePoints";
+import { currentExercise } from "../Contexts";
+import Progress from "./Progress";
+
  
 function Exercise (props) {
     const [formData, setFormData] = useState([]);
-
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [words,setWords] = useState([]);
+    const [activeExercise,setActiveExercise] = useContext(currentExercise);
 
     // Fetch Exercises
     useEffect(() => {
@@ -49,14 +54,25 @@ function Exercise (props) {
         .then(() => {
             console.log("Posted")
             setFormData([]);
+            openDialog()
         })
     }
 
+    const openDialog = () => {
+        setDialogOpen(true);
+
+    }
+
+    const closeDialog = () => {
+        setDialogOpen(false);
+        setActiveExercise(<Progress/>)
+    }
 
     return (
-    <Box>
-        <Typography variant="h6" color="secondary.main">{props.name}</Typography>
-        <Divider sx={{m: 1}}/>
+    <Paper sx={{display: "flex",flexDirection: "column", justifyContent: "center",alignItems: "center", m: 5}}>
+
+        <Typography variant="h6" color="secondary.main" textAlign={"center"}>{props.name}</Typography>
+        <Divider sx={{m: 1, width: "90%"}}/>
         {words.map((x,i) =>
             <Box key={x + "_" + i} 
             display={"flex"} sx={{justifyContent: "center",alignItems: "center", m: 2}}>
@@ -74,8 +90,12 @@ function Exercise (props) {
             </Box>
         
         )}
-        <Button variant="contained" type="submit" value="Submit" sx={{ m: 2,bgcolor: 'success.light' }} onClick={() => submitExercise()}>Submit Exercise<CheckIcon/></Button>
-        </Box>
+
+        <Button variant="contained" type="submit" value="Submit" sx={{ m: 2, bgcolor: 'success.light' }} onClick={() => submitExercise()}>Submit Exercise<CheckIcon/></Button>
+        <Divider sx={{m: 1, width: "90%"}}/>
+        <ExercisePoints exerciseName={props.name} user={1} open={dialogOpen} close={closeDialog}/>
+
+    </Paper>
     );
 }
  

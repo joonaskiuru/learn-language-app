@@ -5,7 +5,7 @@ export const currentExercise = createContext({
     setCurrentExercise: () => {}
   });
 
-  export const exerciseUpdate = createContext({
-    exerciseUpdate: false,
-    setExerciseUpdate: () => {}
-  });
+export const exerciseUpdate = createContext({
+  exerciseUpdate: false,
+  setExerciseUpdate: () => {}
+});

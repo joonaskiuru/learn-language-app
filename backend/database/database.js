@@ -111,6 +111,31 @@ const db = {
     });
   },
 
+  findPointsByExercise: (id,exercise_name) => {
+    return new Promise((resolve, reject) => {
+      const connection = mysql.createConnection(credentials);
+      connection.connect((err) => {
+        // mysql connection
+        if (err) {
+          console.error("Error connecting to MySQL:", err);
+          process.exit(1);
+        } else {
+          connection.query(
+            `SELECT * FROM points WHERE user_id = ${id} AND exercise_name = '${exercise_name}';`,
+            (err, response) => {
+              // Error handling
+              if (err) {
+                reject(err);
+              }
+              connection.end();
+              resolve(response);
+            }
+          );
+        }
+      });
+    });
+  },
+
   deleteById: (topic, id) => {
     return new Promise((resolve, reject) => {
       const connection = mysql.createConnection(credentials);

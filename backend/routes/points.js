@@ -26,32 +26,19 @@ router.get("/user/:myId([0-9]+)", async (req, res) => {
   }
 });
 
-router.get("/:myId([0-9]+)/words", async (req, res) => {
-  const id = parseInt(req.params.myId);
-  try {
-    const response = await database.findWordsByExerciseId(id);
-    res.status(200).json(response);
-  } catch (error) {
-    if (error.msg == `Item not found in database with id: ${id}`) {
-      res.status(404).json(error);
-    } else {
-      res.status(500).json(error);
+router.get("/:exercise/:myId([0-9]+)", async (req, res) => {
+    const id = parseInt(req.params.myId);
+    const exerciseName = req.params.exercise;
+    try {
+      const response = await database.findPointsByExercise(id,exerciseName);
+      res.status(200).json(response);
+    } catch (error) {
+      if (error.msg == `Item not found in database with id: ${id}`) {
+        res.status(404).json(error);
+      } else {
+        res.status(500).json(error);
+      }
     }
-  }
-});
-
-router.delete("/:myId([0-9]+)/words", async (req, res) => {
-  const id = parseInt(req.params.myId);
-  try {
-    const response = await database.deleteExercise(id);
-    res.status(200).json(response);
-  } catch (error) {
-    if (error.msg == `Item not found in database with id: ${id}`) {
-      res.status(404).json(error);
-    } else {
-      res.status(500).json(error);
-    }
-  }
 });
 
 router.delete("/:myId([0-9]+)", async (req, res) => {

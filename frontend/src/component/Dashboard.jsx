@@ -26,12 +26,6 @@ function Dashboard () {
         })
     },[])
 
-    const handleChange = (x) => {
-        console.log(x);
-
-    }
-
-
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -55,22 +49,14 @@ function Dashboard () {
                 sx={{m: 1}} 
                 variant="contained"
                 key={x + i}
-                onClick={() => setActiveExercise(<Exercise {...x}/>)}>
+                onClick={() => setActiveExercise(
+                <currentExercise.Provider value={[activeExercise,setActiveExercise]}><Exercise {...x}/></currentExercise.Provider>)}>
                     {x.name}</Button>)}
                 </Box>
             </Paper>
-            <Grid container spacing={1}>
-                <Grid item xs={12} md={6} lg={6} sx={{m: 1}}>
-                    <Item>
-                        {activeExercise}
-                    </Item>
-                </Grid>
-                <Grid item xs={12} md={5} lg={4} sx={{m: 1}}>
-                    <Item>
-
-                    </Item>
-                </Grid>
-            </Grid>
+            <Box>
+            {activeExercise}
+            </Box>
         </Box>
 
     </>
