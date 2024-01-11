@@ -33,3 +33,10 @@ content-type: application/json
 
 ###
 get http://localhost:3000/api/points/EXERCISE%2001%20-%20BASIC%20WORDS/1 
+
+###
+
+post http://localhost:3000/api/auth/login
+content-type: application/json
+
+{ "name": "Liisa", "password": "4nr!j_i9" }

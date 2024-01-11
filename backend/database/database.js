@@ -9,6 +9,38 @@ const credentials = {
 };
 
 const db = {
+  authenticate: (userData) => {
+    return new Promise((resolve, reject) => {
+      const connection = mysql.createConnection(credentials);
+      connection.connect((err) => {
+        // mysql connection
+        if (err) {
+          console.error("Error connecting to MySQL:", err);
+          process.exit(1);
+        } else {
+          connection.query(
+            `SELECT * FROM users WHERE name = '${userData.name}' AND password = '${userData.password}';`,
+            (err, response) => {
+              // Error handling
+              if (err) {
+                reject(err);
+              } else if (response.length == 0) {
+                resolve("No user found");
+              } else {
+                connection.end();
+                let token = "";
+                for (let i = 0; i < 2; i++) {
+                  token += Math.random().toString(36).substring(2);
+                }
+                resolve({ token: token, isAdmin: response[0]["is_admin"] });
+              }
+            }
+          );
+        }
+      });
+    });
+  },
+
   findAll: (topic) => {
     return new Promise((resolve, reject) => {
       const connection = mysql.createConnection(credentials);
@@ -111,7 +143,7 @@ const db = {
     });
   },
 
-  findPointsByExercise: (id,exercise_name) => {
+  findPointsByExercise: (id, exercise_name) => {
     return new Promise((resolve, reject) => {
       const connection = mysql.createConnection(credentials);
       connection.connect((err) => {
@@ -267,8 +299,7 @@ const db = {
                 );
               }
             );
-          }
-          else if (topic == "points") {
+          } else if (topic == "points") {
             connection.query(
               `INSERT INTO ${topic} (exercise_name,points,max_points,user_id) VALUES (
               ${connection.escape(content["exercise_name"])},
