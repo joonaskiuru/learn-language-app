@@ -24,7 +24,7 @@ function ExercisePoints (props) {
 
     return (
         <Dialog open={props.open} onClose={props.close}>
-            <DialogTitle sx={{textAlign: "center"}}>Edit Task</DialogTitle>
+            <DialogTitle sx={{textAlign: "center",color:"primary.main"}}>Exercise Score</DialogTitle>
             <DialogContent></DialogContent>
             <Box sx={{display: "flex",flexDirection: "column", justifyContent: "center",alignItems: "center", m: 1}}>
                 <Typography>Score:</Typography>

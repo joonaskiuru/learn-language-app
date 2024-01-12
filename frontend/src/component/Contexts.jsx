@@ -9,3 +9,8 @@ export const exerciseUpdate = createContext({
   exerciseUpdate: false,
   setExerciseUpdate: () => {}
 });
+
+export const authToken = createContext({
+  token: false,
+  setToken: () => {}
+});

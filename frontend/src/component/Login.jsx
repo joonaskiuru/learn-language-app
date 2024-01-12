@@ -1,8 +1,9 @@
-import {useState,useEffect, useContext} from "react";
+import {useState, useEffect, useContext} from "react";
 import { Box, TextField, Typography, Divider, Button, Alert} from '@mui/material';
+import { authToken } from "./Contexts";
 
 
-export default function Login() {
+export default function Login({handleLogin}) {
 
     // Initialize needed state variables
     const [alert, setAlert] = useState(false);
@@ -24,11 +25,11 @@ export default function Login() {
         e.preventDefault();
 
         if(!formData.userName || !formData.password){
-            setAlert(true)
+            setAlert("Error in form. Please check all fields.")
             return
         }
         else {
-            const url = `${import.meta.env.VITE_API_URL}/api/login`;
+            const url = `${import.meta.env.VITE_API_URL}/api/auth/login`;
             fetch(url, {
                 method: 'POST',
                 headers: {
@@ -36,10 +37,15 @@ export default function Login() {
                 },
                 body: JSON.stringify(formData)
             })
+            .then((response) => response.json())
             .then((response) => {
-                if(response["token"]){
+                console.log(response + " : login response")
+                console.log(response["token"])
+                if(response["token"]) {
                     sessionStorage.setItem("token",response["token"]);
                     sessionStorage.setItem("isAdmin",response["is_admin"]);
+                    sessionStorage.setItem("user",formData.userName)
+                    handleLogin()
                     console.log("Posted");
                     setAlert(false);
                     setFormData({
@@ -48,7 +54,7 @@ export default function Login() {
                     });
                 }
                 else {
-                    setAlert(true);
+                    setAlert("Invalid Login.");
                 }
             })
         }
@@ -85,7 +91,7 @@ export default function Login() {
     onChange={handleChange}
     />
     <Button variant="contained" type="submit" value="Submit" sx={{ m: 2,bgcolor: 'success.light' }}>Login</Button>
-    <Alert sx={{display: alert ? 'flex' : 'none'}} severity="error">Error in form. Please check all fields.</Alert>
+    <Alert sx={{display: alert ? 'flex' : 'none'}} severity="error">{alert}</Alert>
     </Box>
   );
 }

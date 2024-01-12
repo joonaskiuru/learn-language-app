@@ -10,6 +10,8 @@ const credentials = {
 
 const db = {
   authenticate: (userData) => {
+    console.log(userData.userName + " : db name")
+    console.log(userData.password + " : db pw")
     return new Promise((resolve, reject) => {
       const connection = mysql.createConnection(credentials);
       connection.connect((err) => {
@@ -19,19 +21,20 @@ const db = {
           process.exit(1);
         } else {
           connection.query(
-            `SELECT * FROM users WHERE name = '${userData.name}' AND password = '${userData.password}';`,
+            `SELECT * FROM users WHERE name = '${userData.userName}' AND password = '${userData.password}';`,
             (err, response) => {
               // Error handling
               if (err) {
                 reject(err);
               } else if (response.length == 0) {
-                resolve("No user found");
+                resolve("Invalid Login");
               } else {
                 connection.end();
                 let token = "";
                 for (let i = 0; i < 2; i++) {
                   token += Math.random().toString(36).substring(2);
                 }
+                console.log(token + " : db token")
                 resolve({ token: token, isAdmin: response[0]["is_admin"] });
               }
             }
@@ -214,11 +217,6 @@ const db = {
               if (err) {
                 reject(err);
               }
-              if (response.affectedRows == 0) {
-                reject({
-                  msg: `Item not found in database with id: ${id}`,
-                });
-              }
               connection.query(
                 `DELETE FROM exercises WHERE id = ${id};`,
                 (err, response) => {
@@ -226,22 +224,12 @@ const db = {
                   if (err) {
                     reject(err);
                   }
-                  if (response.affectedRows == 0) {
-                    reject({
-                      msg: `Item not found in database with id: ${id}`,
-                    });
-                  }
                   connection.query(
                     `DELETE FROM points WHERE exercise_id = ${id};`,
                     (err, response) => {
                       // Error handling
                       if (err) {
                         reject(err);
-                      }
-                      if (response.affectedRows == 0) {
-                        reject({
-                          msg: `Item not found in database with id: ${id}`,
-                        });
                       }
                       connection.end();
                       resolve(response);
@@ -314,7 +302,7 @@ const db = {
               }
             );
           } else if (topic == "points") {
-            console.log(content["exercise_id"] + " : content")
+            console.log(content["exercise_id"] + " : content");
             connection.query(
               `INSERT INTO ${topic} (exercise_name,points,max_points,user_id, exercise_id) VALUES (
               ${connection.escape(content["exercise_name"])},
