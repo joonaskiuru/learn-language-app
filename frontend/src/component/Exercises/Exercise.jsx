@@ -40,7 +40,7 @@ function Exercise (props) {
             }
         })
         const id = 1;
-        const data = {"exercise_name": props.name,"points": points,"max_points": words.length,"user_id": id}
+        const data = {"exercise_name": props.name,"points": points,"max_points": words.length,"user_id": id, "exercise_id": props.id}
         console.log(points + ": temp points")
         console.log(data + " : data")
         const url = `${import.meta.env.VITE_API_URL}/api/points/`;

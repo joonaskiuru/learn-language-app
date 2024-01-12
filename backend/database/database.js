@@ -231,8 +231,22 @@ const db = {
                       msg: `Item not found in database with id: ${id}`,
                     });
                   }
-                  connection.end();
-                  resolve(response);
+                  connection.query(
+                    `DELETE FROM points WHERE exercise_id = ${id};`,
+                    (err, response) => {
+                      // Error handling
+                      if (err) {
+                        reject(err);
+                      }
+                      if (response.affectedRows == 0) {
+                        reject({
+                          msg: `Item not found in database with id: ${id}`,
+                        });
+                      }
+                      connection.end();
+                      resolve(response);
+                    }
+                  );
                 }
               );
             }
@@ -300,12 +314,14 @@ const db = {
               }
             );
           } else if (topic == "points") {
+            console.log(content["exercise_id"] + " : content")
             connection.query(
-              `INSERT INTO ${topic} (exercise_name,points,max_points,user_id) VALUES (
+              `INSERT INTO ${topic} (exercise_name,points,max_points,user_id, exercise_id) VALUES (
               ${connection.escape(content["exercise_name"])},
               ${connection.escape(content["points"])},
               ${connection.escape(content["max_points"])},
-              ${connection.escape(content["user_id"])})
+              ${connection.escape(content["user_id"])},
+              ${connection.escape(content["exercise_id"])})
               ON DUPLICATE KEY UPDATE
                 points = ${connection.escape(content["points"])};`,
               (err, response) => {
