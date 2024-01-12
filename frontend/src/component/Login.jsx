@@ -1,5 +1,5 @@
 import {useState, useEffect, useContext} from "react";
-import { Box, TextField, Typography, Divider, Button, Alert} from '@mui/material';
+import { Box, TextField, Typography, Divider, Button, Alert, Paper, Container} from '@mui/material';
 import { authToken } from "./Contexts";
 
 
@@ -61,6 +61,10 @@ export default function Login({handleLogin}) {
     }
 
   return (
+    <Container sx={{bgcolor: "primary.light", p: 5}}>
+        <Typography sx={{m: 2}} variant="h5">LEARN LANGUAGE - APP</Typography>   
+        <Divider sx={{m: 1}}/> 
+    <Paper sx={{m: "auto", p:5,}}>
     <Box
     sx={{display: "flex",flexDirection: "column", justifyContent: 'center'}}
     component="form"
@@ -93,5 +97,7 @@ export default function Login({handleLogin}) {
     <Button variant="contained" type="submit" value="Submit" sx={{ m: 2,bgcolor: 'success.light' }}>Login</Button>
     <Alert sx={{display: alert ? 'flex' : 'none'}} severity="error">{alert}</Alert>
     </Box>
+    </Paper>
+    </Container>
   );
 }

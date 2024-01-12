@@ -7,6 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
  
 function ExercisePoints (props) {
 
@@ -24,16 +25,17 @@ function ExercisePoints (props) {
 
     return (
         <Dialog open={props.open} onClose={props.close}>
-            <DialogTitle sx={{textAlign: "center",color:"primary.main"}}>Exercise Score</DialogTitle>
-            <DialogContent></DialogContent>
-            <Box sx={{display: "flex",flexDirection: "column", justifyContent: "center",alignItems: "center", m: 1}}>
-                <Typography>Score:</Typography>
+            <DialogTitle sx={{textAlign: "center",color:"primary.dark"}}>Exercise Score</DialogTitle>
+            <DialogContent>
+            <Box sx={{display: "flex",flexDirection: "column", justifyContent: "center",alignItems: "center",p: 1,border: "3px solid lightgrey",borderRadius: "3px"}}>
+                <Typography variant="h6">Score</Typography>
                 {exercisePoints ? (
-                <Typography>{exercisePoints["points"]} / {exercisePoints["max_points"]}</Typography>) : (<Typography>Loading...</Typography>)}
+                <Typography variant="h6">{exercisePoints["points"]} / {exercisePoints["max_points"]}</Typography>) : (<Typography>Loading...</Typography>)}
             </Box>
                 <DialogActions>
-                    <Button onClick={props.close}>Close</Button>
+                    <Button sx={{color:"error.dark",m: "auto","&:hover":{color: "error.light"}}} onClick={props.close}>Close<CloseIcon/></Button>
                 </DialogActions>
+            </DialogContent>
         </Dialog>
     );
 }

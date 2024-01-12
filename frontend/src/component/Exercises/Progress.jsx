@@ -44,7 +44,7 @@ function Progress (props) {
                 <Divider sx={{m: 1}}/>
                 {points.map((x) => <Paper sx={{color: "white",bgcolor: "success.light",p: 1,m:1}} key={x["exercise_name"]}>
                     <Typography>{x["exercise_name"]}</Typography>
-                    <Typography>Points: {x["points"]} / {x["max_points"]}</Typography>
+                    <Typography>Score: {x["points"]} / {x["max_points"]}</Typography>
                     </Paper>)}
 
             </Item>
