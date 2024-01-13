@@ -36,7 +36,7 @@ const db = {
                 resolve({
                   user_id: response[0]["id"],
                   token: token,
-                  isAdmin: response[0]["is_admin"],
+                  is_admin: response[0]["is_admin"],
                 });
               }
             }

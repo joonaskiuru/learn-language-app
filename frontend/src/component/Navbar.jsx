@@ -47,11 +47,12 @@ function Navbar() {
     console.log("pushed")
     sessionStorage.clear();
     setLogin(false);
+    return <Login handleLogin={handleLogin}/>
   }
 
   return (
   <>
-    {sessionStorage.getItem('token') == undefined ? <Login handleLogin={handleLogin}/> : 
+    {!login ? <Login handleLogin={handleLogin}/> : 
     <Router>
       <AppBar position="static">
         <Container maxWidth="xl">

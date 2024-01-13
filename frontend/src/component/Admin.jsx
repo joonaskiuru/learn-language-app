@@ -5,10 +5,13 @@ import { Box, Paper, Grid, Typography, Divider, Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExerciseForm from "./ExerciseForm";
+import LockIcon from '@mui/icons-material/Lock';
  
 function Admin() {
     const [exercises, setExercises] = useState([]);
     const [activePage,setActivePage] = useState('Main');
+    const admin = sessionStorage.getItem("is_admin")
+    console.log(admin + " : admin")
 
     // Fetch Exercises
     useEffect(() => {
@@ -38,8 +41,8 @@ function Admin() {
     }));
 
     return (
-        <> 
-        <Box sx={{ flexGrow: 1,bgcolor: "lightgrey"}}>
+        <>
+        {admin == 1 ? <Box sx={{ flexGrow: 1,bgcolor: "lightgrey"}}>
             <Paper sx={{ m: 2, p: 1,display: {xs: "none", sm: 'block'}}}>
                 <Typography variant="h6" sx={{color: 'text.secondary'}}>Admin</Typography>
                 <Typography>Manage Exercises</Typography>
@@ -59,7 +62,13 @@ function Admin() {
                     </Item>
                 </Grid>
             </Grid>
-        </Box>
+        </Box> : 
+        <Box sx={{bgcolor: "lightgrey"}}>
+        <Paper sx={{m: 2, p: 2}}>
+            <Typography variant="h5"><LockIcon sx={{mr: 2}}/>Not Logged In As Administrator</Typography>
+            <Typography>Log in as user with admin rights to modify exercises.</Typography>
+        </Paper></Box>}
+        
     </>
     );
 }

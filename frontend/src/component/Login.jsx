@@ -39,11 +39,9 @@ export default function Login({handleLogin}) {
             })
             .then((response) => response.json())
             .then((response) => {
-                console.log(response + " : login response")
-                console.log(response["token"])
                 if(response["token"]) {
                     sessionStorage.setItem("token",response["token"]);
-                    sessionStorage.setItem("isAdmin",response["is_admin"]);
+                    sessionStorage.setItem("is_admin",response["is_admin"]);
                     sessionStorage.setItem("user",formData.userName)
                     sessionStorage.setItem("user_id",response["user_id"])
                     handleLogin()
