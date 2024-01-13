@@ -12,6 +12,7 @@ function Exercise (props) {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [words,setWords] = useState([]);
     const [activeExercise,setActiveExercise] = useContext(currentExercise);
+    const user_id = sessionStorage.getItem("user_id")
 
     // Fetch Exercises
     useEffect(() => {
@@ -39,10 +40,10 @@ function Exercise (props) {
                 points += 1;
             }
         })
-        const id = 1;
-        const data = {"exercise_name": props.name,"points": points,"max_points": words.length,"user_id": id, "exercise_id": props.id}
+
+        const data = {"exercise_name": props.name,"points": points,"max_points": words.length,"user_id": user_id, "exercise_id": props.id}
         console.log(points + ": temp points")
-        console.log(data + " : data")
+        console.log(data["user_id"] + " : data")
         const url = `${import.meta.env.VITE_API_URL}/api/points/`;
         fetch(url, {
             method: 'POST',
@@ -93,7 +94,7 @@ function Exercise (props) {
 
         <Button variant="contained" type="submit" value="Submit" sx={{ m: 2, bgcolor: 'success.light' }} onClick={() => submitExercise()}>Submit Exercise<CheckIcon/></Button>
         <Divider sx={{m: 1, width: "90%"}}/>
-        <ExercisePoints exerciseName={props.name} user={1} open={dialogOpen} close={closeDialog}/>
+        <ExercisePoints exerciseName={props.name} user={user_id} open={dialogOpen} close={closeDialog}/>
 
     </Paper>
     );

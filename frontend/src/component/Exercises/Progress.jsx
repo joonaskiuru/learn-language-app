@@ -5,10 +5,11 @@ import { Box, Paper, Grid, Typography, MenuItem, Select, Button, Divider  } from
 function Progress (props) {
     const [points,setPoints] = useState([]);
     const [stats,setStats] = useState({});
+    const user_id = sessionStorage.getItem("user_id")
 
     // Fetch Exercises
     useEffect(() => {
-        const url = `${import.meta.env.VITE_API_URL}/api/points/user/1`;
+        const url = `${import.meta.env.VITE_API_URL}/api/points/user/${user_id}`;
         fetch(url).then((response) => response.json()).then((response) => {
             setPoints(response);
         })

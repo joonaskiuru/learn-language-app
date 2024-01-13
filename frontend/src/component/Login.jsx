@@ -45,6 +45,7 @@ export default function Login({handleLogin}) {
                     sessionStorage.setItem("token",response["token"]);
                     sessionStorage.setItem("isAdmin",response["is_admin"]);
                     sessionStorage.setItem("user",formData.userName)
+                    sessionStorage.setItem("user_id",response["user_id"])
                     handleLogin()
                     console.log("Posted");
                     setAlert(false);

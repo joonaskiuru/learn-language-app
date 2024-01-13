@@ -15,7 +15,6 @@ function ExercisePoints (props) {
 
     // Fetch Exercises
     useEffect(() => {
-        console.log(`${import.meta.env.VITE_API_URL}/api/points/${encodeURIComponent(props.exerciseName)}/${props.user}`)
         const url = `${import.meta.env.VITE_API_URL}/api/points/${encodeURIComponent(props.exerciseName)}/${props.user}`;
         fetch(url).then((response) => response.json()).then((response) => {
             console.log(response)

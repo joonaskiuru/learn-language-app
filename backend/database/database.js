@@ -10,8 +10,6 @@ const credentials = {
 
 const db = {
   authenticate: (userData) => {
-    console.log(userData.userName + " : db name")
-    console.log(userData.password + " : db pw")
     return new Promise((resolve, reject) => {
       const connection = mysql.createConnection(credentials);
       connection.connect((err) => {
@@ -34,8 +32,12 @@ const db = {
                 for (let i = 0; i < 2; i++) {
                   token += Math.random().toString(36).substring(2);
                 }
-                console.log(token + " : db token")
-                resolve({ token: token, isAdmin: response[0]["is_admin"] });
+
+                resolve({
+                  user_id: response[0]["id"],
+                  token: token,
+                  isAdmin: response[0]["is_admin"],
+                });
               }
             }
           );
@@ -255,8 +257,6 @@ const db = {
           });
         } else {
           if (topic == "words") {
-            console.log(content["exerciseName"] + ": exerciseName");
-            console.log(content["language"] + ": language");
             connection.query(
               `INSERT INTO exercises(name,language) VALUES (
               ${connection.escape(content["exerciseName"])},
@@ -278,7 +278,6 @@ const db = {
                       });
                     }
                     const ex_id = JSON.stringify(response[0]["MAX(id)"]);
-                    console.log(ex_id + ": ex id");
                     let wordsData = "";
                     content.words.map((x) => {
                       wordsData += `("${x["original"]}","${x["translated"]}",${ex_id}),`;
@@ -286,7 +285,6 @@ const db = {
                     wordsData = wordsData.slice(0, -1);
                     const wordsQuery = `INSERT INTO words(original, translated,exercise_id) VALUES 
                       ${wordsData};`;
-                    console.log(wordsQuery + " : words query");
                     connection.query(wordsQuery, (err, response) => {
                       // Error handling
                       if (err) {
@@ -294,24 +292,48 @@ const db = {
                           msg: err,
                         });
                       }
-                      connection.end();
-                      resolve(response);
+                      connection.query(
+                        "SELECT id FROM users;",
+                        (err, response) => {
+                          // Error handling
+                          if (err) {
+                            reject({
+                              msg: err,
+                            });
+                          }
+                          let values = "";
+                          for (const item of response) {
+                            values += `("${content["exerciseName"]}", 0, ${content.words.length},${item["id"]}, ${ex_id}),`;
+                          }
+                          values = values.slice(0, -1);
+                          connection.query(
+                            `INSERT INTO points(exercise_name,points,max_points,user_id,exercise_id) VALUES ${values};`,
+                            (err, response) => {
+                              if (err) {
+                                reject({
+                                  msg: err,
+                                });
+                              }
+                              connection.end();
+                              resolve(response);
+                            }
+                          );
+                        }
+                      );
                     });
                   }
                 );
               }
             );
           } else if (topic == "points") {
-            console.log(content["exercise_id"] + " : content");
             connection.query(
-              `INSERT INTO ${topic} (exercise_name,points,max_points,user_id, exercise_id) VALUES (
-              ${connection.escape(content["exercise_name"])},
-              ${connection.escape(content["points"])},
-              ${connection.escape(content["max_points"])},
-              ${connection.escape(content["user_id"])},
-              ${connection.escape(content["exercise_id"])})
-              ON DUPLICATE KEY UPDATE
-                points = ${connection.escape(content["points"])};`,
+              `UPDATE ${topic}
+                SET points =${connection.escape(
+                  content["points"]
+                )}
+                WHERE user_id = ${connection.escape(content["user_id"])} AND 
+                exercise_id = ${connection.escape(content["exercise_id"])};`,
+
               (err, response) => {
                 // Error handling
                 if (err) {

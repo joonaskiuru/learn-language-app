@@ -44,6 +44,7 @@ function Navbar() {
   }
 
   const handleLogout = () => {
+    console.log("pushed")
     sessionStorage.clear();
     setLogin(false);
   }
