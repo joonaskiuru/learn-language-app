@@ -18,7 +18,7 @@ import {
     Link as RouterLink,
     BrowserRouter as Router,
     Routes,
-    Route, Navigate, Outlet
+    Route, Navigate
 } from "react-router-dom";
 
 import Dashboard from "./Dashboard"; 
@@ -52,8 +52,12 @@ function Navbar() {
 
   return (
   <>
-    {!login ? <Login handleLogin={handleLogin}/> : 
-    <Router>
+  <Router>
+    {!login ?<><Login handleLogin={handleLogin}/><Routes>
+              <Route exact
+                path='/*'
+                element={<Navigate to='/Login'/>} /></Routes></> : 
+    
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -147,6 +151,9 @@ function Navbar() {
           </Toolbar>
         </Container>
             <Routes>
+            <Route exact
+                path='/Login'
+                element={<Navigate to='/Dashboard'/>} />
               <Route exact
                 path='/'
                 element={<Navigate to='/Dashboard'/>} />
@@ -167,8 +174,8 @@ function Navbar() {
             </Route>     
             </Routes>
       </AppBar>
-      </Router>}
-    
+      }
+    </Router>
   </>
   );
 }

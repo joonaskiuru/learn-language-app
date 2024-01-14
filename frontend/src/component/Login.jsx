@@ -87,7 +87,8 @@ export default function Login({handleLogin}) {
     sx={{m: 2}} 
     id="language" 
     label="Password" 
-    variant="outlined" 
+    variant="outlined"
+    type="password"
     value={formData.password} 
     name="password"
     onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
