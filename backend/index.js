@@ -4,7 +4,7 @@ const usersRouter = require("./routes/users");
 const wordsRouter = require("./routes/words");
 const pointsRouter = require("./routes/points");
 const authenticationRouter = require("./routes/authentication");
-const port = 3000;
+const port = 8080;
 const app = express();
 const cors = require("cors");
 
