@@ -52,7 +52,7 @@ function Navbar() {
 
   return (
   <>
-  <Router>
+  <Router basename="/">
     {!login ?<><Login handleLogin={handleLogin}/><Routes>
               <Route exact
                 path='/*'
