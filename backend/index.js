@@ -7,6 +7,7 @@ const authenticationRouter = require("./routes/authentication");
 const port = 8080;
 const app = express();
 const cors = require("cors");
+const path = require('path')
 
 const mysql = require("mysql");
 require("dotenv").config();
