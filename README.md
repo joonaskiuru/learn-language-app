@@ -25,6 +25,7 @@ Used technologies:
 You must login to access the app.
 
 You can use these tester accounts for logging in:
+```
 Username: Liisa
 Password: 4nr!j_i9
 Admin: Yes
@@ -32,7 +33,7 @@ Admin: Yes
 Username: Matti
 Password: fH45?op!
 Admin: No
-
+```
 Only users with admin rights can create or delete exercises.
 
 ## Dashboard
