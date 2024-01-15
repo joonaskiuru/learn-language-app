@@ -61,9 +61,9 @@ export default function Login({handleLogin}) {
 
   return (
     <Container sx={{bgcolor: "primary.light", p: 5}}>
-        <Typography sx={{m: 2}} variant="h5">LEARN LANGUAGE - APP</Typography>   
-        <Divider sx={{m: 1}}/> 
-    <Paper sx={{m: "auto", p:5,}}>
+        <Typography sx={{m: 2,textAlign: "center"}} variant="h5">LEARN LANGUAGE - APP</Typography>   
+        <Divider sx={{m: 2}}/> 
+    <Paper sx={{m: "auto", p:5,width: "70%"}}>
     <Box
     sx={{display: "flex",flexDirection: "column", justifyContent: 'center'}}
     component="form"
