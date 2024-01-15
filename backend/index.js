@@ -27,6 +27,10 @@ app.use("/api/words", wordsRouter);
 app.use("/api/points", pointsRouter);
 app.use("/api/auth/", authenticationRouter);
 
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+
 let server = undefined;
 const connection = mysql.createConnection(credentials);
 connection.connect((err) => {
