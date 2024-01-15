@@ -16,11 +16,12 @@ function Exercise (props) {
 
     // Fetch Exercises
     useEffect(() => {
+        console.log(props.id + ": props id")
         const url = `${import.meta.env.VITE_API_URL}/api/exercises/` + props.id + "/words" ;
         fetch(url).then((response) => response.json()).then((response) => {
             setWords(response);
         })
-    },[])
+    },[activeExercise])
 
     // Handle change in form
     const handleChange = (e) => {
@@ -92,7 +93,7 @@ function Exercise (props) {
         
         )}
 
-        <Button variant="contained" type="submit" value="Submit" sx={{ m: 2, bgcolor: 'success.light' }} onClick={() => submitExercise()}>Submit Exercise<CheckIcon/></Button>
+        <Button variant="contained" type="submit" value="Submit" sx={{ m: 2, bgcolor: 'success.light',color: "white" }} onClick={() => submitExercise()}>Submit Exercise<CheckIcon/></Button>
         <Divider sx={{m: 1, width: "90%"}}/>
         <ExercisePoints exerciseName={props.name} user={user_id} open={dialogOpen} close={closeDialog}/>
 

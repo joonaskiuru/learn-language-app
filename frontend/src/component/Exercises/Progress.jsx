@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import { Box, Paper, Grid, Typography, MenuItem, Select, Button, Divider  } from '@mui/material';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
  
 function Progress (props) {
     const [points,setPoints] = useState([]);
@@ -25,15 +26,13 @@ function Progress (props) {
     }));
 
     useEffect(() => {
-        var element = [];
+        var totalPoints = 0;
+        var maxPoints = 0;
         for(let i = 0; i < points.length;i++){
-            for (const [key, value] of Object.entries(points[i])) {
-                element.push(key,value
-                )
-            }
-            console.log(element + ": element")
+            totalPoints += points[i]["points"]
+            maxPoints += points[i]["max_points"]
         }
-        setStats(element);
+        setStats({"totalPoints": totalPoints, "maxPoints":maxPoints});
     },[points])
 
 
@@ -52,7 +51,11 @@ function Progress (props) {
         </Grid>
         <Grid item xs={12} md={5} lg={4} sx={{m: 1}}>
             <Item>
-
+                <Typography sx={{color: "primary.dark"}} variant="h5"><EmojiEventsIcon sx={{mr: 2}}/>Total Points</Typography>
+                <Divider sx={{m: 1}}/>
+                <Paper sx={{bgcolor: "secondary.main", p: 1}}>
+                <Typography sx={{color: "white"}} variant="h5">{stats["totalPoints"]} / {stats["maxPoints"]}</Typography>
+                </Paper>
             </Item>
         </Grid>
     </Grid>
