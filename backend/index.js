@@ -29,7 +29,7 @@ app.use("/api/points", pointsRouter);
 app.use("/api/auth/", authenticationRouter);
 
 app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 let server = undefined;
