@@ -7,7 +7,7 @@ const authenticationRouter = require("./routes/authentication");
 const port = 8080;
 const app = express();
 const cors = require("cors");
-const path = require('path')
+const path = require("path");
 
 const mysql = require("mysql");
 require("dotenv").config();
@@ -29,7 +29,7 @@ app.use("/api/points", pointsRouter);
 app.use("/api/auth/", authenticationRouter);
 
 app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 });
 
 let server = undefined;
