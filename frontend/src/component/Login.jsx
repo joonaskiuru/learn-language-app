@@ -60,10 +60,10 @@ export default function Login({handleLogin}) {
     }
 
   return (
-    <Container sx={{bgcolor: "primary.light", p: 5}}>
+    <Container sx={{bgcolor: "primary.light", p: {md: 5, xs: 3}}}>
         <Typography sx={{m: 2,textAlign: "center"}} variant="h5">LEARN LANGUAGE - APP</Typography>   
         <Divider sx={{m: 2}}/> 
-    <Paper sx={{m: "auto", p:5,width: "70%"}}>
+    <Paper sx={{m: "auto", p:5,width: {md: "70%", xs: "100%"}}}>
     <Box
     sx={{display: "flex",flexDirection: "column", justifyContent: 'center'}}
     component="form"
