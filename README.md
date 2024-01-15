@@ -34,7 +34,6 @@ Username: Matti
 Password: fH45?op!
 Admin: No
 ```
-Only users with admin rights can create or delete exercises.
 
 ## Dashboard
 ![Dashboard Page](/readme/Screenshot_3.png)
@@ -45,4 +44,6 @@ All created exercises are listed next to the "Progress" button.
 ## Admin
 ![Admin Page](/readme/Screenshot_2.png)
 
-In the Admin section the user can create and delete exercises (provided that the user has admin privileges).
+In the Admin section the user can create and delete exercises.
+
+**Only users with admin rights can create or delete exercises.**
