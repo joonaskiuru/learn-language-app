@@ -2,7 +2,7 @@ import {useState,useEffect} from "react";
 import { Box, TextField, Typography,Divider, Button, Chip, Stack, MenuItem, Select, Alert} from '@mui/material';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 
-export default function ExerciseForm() {
+export default function ExerciseForm({updateExercises}) {
 
     // Initialize needed state variables
     const [language,setLanguage] = useState("")
@@ -93,6 +93,7 @@ export default function ExerciseForm() {
                     language: '',
                     words: [],
                 });
+                updateExercises();
             })
         }
     }

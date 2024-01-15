@@ -38,6 +38,14 @@ function Admin() {
         color: theme.palette.text.secondary,
     }));
 
+    const updateExercises = () => {
+        const url = `${import.meta.env.VITE_API_URL}/api/` + "exercises";
+        fetch(url).then((response) => response.json()).then((response) => {
+            console.log(response + ": response")
+            setExercises(response);
+        })
+    }
+
     return (
         <>
         {admin == 1 ? <Box sx={{ flexGrow: 1,bgcolor: "lightgrey"}}>
@@ -49,7 +57,7 @@ function Admin() {
             <Grid container spacing={1}>
                 <Grid item xs={12} md={6} lg={4} sx={{m: 1}}>
                     <Item>
-                        <ExerciseForm/>
+                        <ExerciseForm updateExercises={updateExercises}/>
                     </Item>
                 </Grid>
                 <Grid item xs={12} md={5} lg={4} sx={{m: 1}}>

@@ -29,7 +29,7 @@ import Login from "./Login";
 function Navbar() {
   const pages = ['Dashboard', 'Admin', 'Info'];
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [login,setLogin] = useState(false);
+  const [login,setLogin] = useState(sessionStorage.getItem("token"));
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
