@@ -1,11 +1,5 @@
-import React from "react";
 import {useState, useEffect} from "react";
-import { styled } from '@mui/material/styles';
-import { Box, Paper, Grid, Typography, Divider, Button } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import ExerciseForm from "./ExerciseForm";
+import { Button } from '@mui/material';
  
 function ExerciseMenu() {
     const [exercises, setExercises] = useState([]);

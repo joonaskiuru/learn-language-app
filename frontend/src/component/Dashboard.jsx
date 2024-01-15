@@ -1,17 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
-import { Box, Paper, Grid, Typography, MenuItem, Select, Button, Divider, AppBar, Menu, Toolbar} from '@mui/material';
+import { Box, Paper, Typography, Button, Divider } from '@mui/material';
 import Exercise from "./Exercises/Exercise";
 import Progress from "./Exercises/Progress";
 import { currentExercise } from "./Contexts";
-
-import {
-    Link as RouterLink,
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Outlet
-} from "react-router-dom";
  
 function Dashboard () {
     const [activeExercise,setActiveExercise] = useState(<Progress/>);
