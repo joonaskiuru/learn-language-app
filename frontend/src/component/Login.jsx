@@ -1,7 +1,7 @@
 import {useState, useEffect, useContext} from "react";
-import { Box, TextField, Typography, Divider, Button, Alert, Paper, Container} from '@mui/material';
+import { Box, TextField, Typography, Divider, Button, Alert, Paper, Container, List, ListItem, ListItemText} from '@mui/material';
 import { authToken } from "./Contexts";
-
+import InfoIcon from '@mui/icons-material/Info';
 
 export default function Login({handleLogin}) {
 
@@ -97,6 +97,34 @@ export default function Login({handleLogin}) {
     <Button variant="contained" type="submit" value="Submit" sx={{ m: 2,bgcolor: 'success.light' }}>Login</Button>
     <Alert sx={{display: alert ? 'flex' : 'none'}} severity="error">{alert}</Alert>
     </Box>
+    </Paper>
+    <Divider sx={{m: 3}}/>
+    <Paper sx={{m: 2, p:2, bgcolor: "primary.dark"}}>
+        <Typography variant="h6"><InfoIcon sx={{mr: 2}}/>Tester Accounts</Typography>
+        <Divider sx={{m: 1}}/> 
+        <List dense={true}>
+        <ListItem disablePadding>
+              <ListItemText primary="Username: Liisa" />
+          </ListItem>
+          <ListItem disablePadding>
+              <ListItemText primary="Password: 4nr!j_i9" />
+          </ListItem>
+          <ListItem disablePadding>
+              <ListItemText primary="Admin: Yes" />
+          </ListItem>
+        </List>
+        <List dense={true}>
+          <ListItem disablePadding>
+              <ListItemText primary="Username: Matti" />
+          </ListItem>
+          <ListItem disablePadding>
+              <ListItemText primary="Password: fH45?op!" />
+          </ListItem>
+          <ListItem disablePadding>
+              <ListItemText primary="Admin: No" />
+          </ListItem>
+        </List>
+
     </Paper>
     </Container>
   );

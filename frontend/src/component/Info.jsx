@@ -1,12 +1,13 @@
 import { Box, Paper, Typography, Divider } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
+import InfoIcon from '@mui/icons-material/Info';
  
 function Info() {
     return (
     <>
     <Box sx={{ flexGrow: 1,bgcolor: "lightGrey",minHeight: '100vh', p: 1 }}>
         <Paper sx={{p:1}}>
-            <Typography variant="h5">Info</Typography>
+            <Typography variant="h5"><InfoIcon sx={{mr: 2}}/>Info</Typography>
             <Divider sx={{my: 1}}/>
             <Typography variant="subtitle2" sx={{color: 'primary.dark'}}>Made By: Joonas Kiuru</Typography>
             <Typography variant="subtitle2">Learn Language - App : app for learning languages</Typography>
