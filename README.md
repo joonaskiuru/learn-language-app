@@ -20,7 +20,7 @@ Used technologies:
     - Material 
     
 ## Login
-![Login Page](readme\Screenshot_1.png)
+![Login Page](/readme/Screenshot_1.png)
 
 You must login to access the app.
 
@@ -36,12 +36,12 @@ Admin: No
 Only users with admin rights can create or delete exercises.
 
 ## Dashboard
-![Dashboard Page](readme\Screenshot_3.png)
+![Dashboard Page](/readme/Screenshot_3.png)
 
 In the Dashboard view, userss can track their progress and complete exercises.
 All created exercises are listed next to the "Progress" button.
 
 ## Admin
-![Admin Page](readme\Screenshot_2.png)
+![Admin Page](/readme/Screenshot_2.png)
 
 In the Admin section the user can create and delete exercises (provided that the user has admin privileges).
