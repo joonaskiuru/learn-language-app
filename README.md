@@ -18,6 +18,8 @@ Used technologies:
 - Frontend
     - React
     - Material 
+
+Docker used for creating a container.
     
 ## Login
 ![Login Page](/readme/Screenshot_1.png)
