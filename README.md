@@ -17,10 +17,10 @@ Used technologies:
 
 - Frontend
     - React
-    - Material 
+    - Material
 
 Docker used for creating a container.
-    
+
 ## Login
 ![Login Page](/readme/Screenshot_1.png)
 
@@ -49,3 +49,8 @@ All created exercises are listed next to the "Progress" button.
 In the Admin section the user can create and delete exercises.
 
 **Only users with admin rights can create or delete exercises.**
+
+## Screencast
+
+Link to screencast:
+https://youtu.be/nF1pKuzp_HM
