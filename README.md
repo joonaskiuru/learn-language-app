@@ -49,8 +49,3 @@ All created exercises are listed next to the "Progress" button.
 In the Admin section the user can create and delete exercises.
 
 **Only users with admin rights can create or delete exercises.**
-
-## Screencast
-
-Link to screencast:
-https://youtu.be/nF1pKuzp_HM
