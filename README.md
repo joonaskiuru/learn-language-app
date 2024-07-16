@@ -1,5 +1,7 @@
 # learn-language-app
 
+**NOTE: The school database that the Render app was linked to was taken down, so the Render link is no longer working.**
+
 Learn languages with this web app.
 
 URL: https://learn-languages-app.onrender.com/
